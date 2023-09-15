@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     public GameObject[] stationPanels;
+    public GameObject cam;
     int curStation;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,10 @@ public class GameMaster : MonoBehaviour
 
     public void leftStation()
     {
+        //Rotate Camera -90 degrees
+        Vector3 newRotation = new Vector3(0, -90, 0);
+        cam.transform.Rotate(newRotation);
+
         //By pressing the left button, the station tracker moves backwards in the array by one element
 
         curStation = curStation - 1;
@@ -47,6 +52,10 @@ public class GameMaster : MonoBehaviour
 
     public void rightStation()
     {
+        //Rotate Camera 90 degrees
+        Vector3 newRotation = new Vector3(0, 90, 0);
+        cam.transform.Rotate(newRotation);
+
         //By pressing the right button, the station tracker moves forwards in the array by one element
 
         curStation = curStation + 1;
