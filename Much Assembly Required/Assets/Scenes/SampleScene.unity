@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1137,7 +1137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 351016287}
   m_Layer: 0
-  m_Name: Paint
+  m_Name: PaintStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1168,8 +1168,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 371574910}
+  - component: {fileID: 371574911}
   m_Layer: 0
-  m_Name: Welding
+  m_Name: WeldingStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1191,6 +1192,18 @@ Transform:
   - {fileID: 647129659}
   m_Father: {fileID: 1074659637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &371574911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371574909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21455ed468ebe0048807d1cabd12d8ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &398185130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,8 +2054,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 650042730}
+  - component: {fileID: 650042731}
   m_Layer: 0
-  m_Name: Assembly
+  m_Name: AssemblyStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2064,6 +2078,18 @@ Transform:
   - {fileID: 1376547988}
   m_Father: {fileID: 1074659637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &650042731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650042729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0a8ab026d2e5540b3ff3622adf4568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &715551962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2152,7 +2178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 722924571}
   m_Layer: 0
-  m_Name: Counter
+  m_Name: CounterStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2184,7 +2210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 742647892}
   m_Layer: 0
-  m_Name: Fuel
+  m_Name: FuelStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2740,8 +2766,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1074659637}
+  - component: {fileID: 1074659638}
   m_Layer: 0
-  m_Name: Stations
+  m_Name: AssemblyLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2767,6 +2794,21 @@ Transform:
   - {fileID: 351016287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1074659638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074659636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1733863108e4f42bbe3ae05f2bd60d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stations:
+  - {fileID: 650042731}
+  - {fileID: 371574911}
 --- !u!1 &1104198929
 GameObject:
   m_ObjectHideFlags: 0
