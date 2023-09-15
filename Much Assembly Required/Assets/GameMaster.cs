@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour
 {
+    public List<GameObject> shipQueue;
     public GameObject[] stationPanels;
     public GameObject cam;
+    public GameObject loadShip;
     int curStation;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,10 @@ public class GameMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetMouseButtonDown(0))
+        {
+            shipOrder();
+        }
     }
 
     public void leftStation()
@@ -78,5 +83,11 @@ public class GameMaster : MonoBehaviour
         stationPanels[curStation].SetActive(true);
 
         //Thats it!
+    }
+
+    public void shipOrder()
+    {
+        GameObject temp = Instantiate(loadShip);
+        shipQueue.Add(temp);
     }
 }
