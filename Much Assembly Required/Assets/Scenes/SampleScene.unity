@@ -4079,6 +4079,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cca7ecbc0c651b43a166db5c14f2d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assemblyTargets:
+  - {fileID: 769571411}
+  - {fileID: 678242631}
+  - {fileID: 881568951}
 --- !u!4 &2140784018
 Transform:
   m_ObjectHideFlags: 0

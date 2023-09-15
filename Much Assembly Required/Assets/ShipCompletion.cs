@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShipCompletion : MonoBehaviour
 {
+    public GameObject[] assemblyTargets;
     // Start is called before the first frame update
     void Start()
     {
