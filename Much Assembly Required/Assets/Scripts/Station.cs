@@ -31,6 +31,6 @@ public abstract class Station : MonoBehaviour
     public void Unview()
     {
         // deactivate stations UI when leaving this station
-        this.gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+        this.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(false);
     }
 }
