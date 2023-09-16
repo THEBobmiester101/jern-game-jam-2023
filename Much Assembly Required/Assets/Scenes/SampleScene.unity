@@ -530,6 +530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 351016287}
+  - component: {fileID: 351016288}
   m_Layer: 0
   m_Name: PaintStation
   m_TagString: Untagged
@@ -554,6 +555,18 @@ Transform:
   - {fileID: 1158499063}
   m_Father: {fileID: 1074659637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &351016288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351016286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89164fea82a2c34f8d697707427e8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &371574909
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,12 +745,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipQueue: []
-  stationPanels:
-  - {fileID: 874507670}
-  - {fileID: 537534662}
-  - {fileID: 908653992}
-  - {fileID: 391165178}
-  - {fileID: 1158499062}
+  stations:
+  - {fileID: 722924572}
+  - {fileID: 650042731}
+  - {fileID: 742647893}
+  - {fileID: 371574911}
+  - {fileID: 351016288}
   cam: {fileID: 1303026440}
   loadShip: {fileID: 2627120863094726159, guid: f2de343faba2fc543a4ab7cf4959b5ee, type: 3}
 --- !u!4 &398185132
@@ -1511,6 +1524,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 722924571}
+  - component: {fileID: 722924572}
   m_Layer: 0
   m_Name: CounterStation
   m_TagString: Untagged
@@ -1535,6 +1549,18 @@ Transform:
   - {fileID: 874507671}
   m_Father: {fileID: 1074659637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722924572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722924570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac326ec81e58aa04faaf2ed436cdac3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &742647891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,6 +1570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742647892}
+  - component: {fileID: 742647893}
   m_Layer: 0
   m_Name: FuelStation
   m_TagString: Untagged
@@ -1568,6 +1595,18 @@ Transform:
   - {fileID: 908653993}
   m_Father: {fileID: 1074659637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &742647893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742647891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5af6674c1d33348bd1464a5d29bf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &857201767
 GameObject:
   m_ObjectHideFlags: 0

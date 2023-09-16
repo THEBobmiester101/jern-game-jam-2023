@@ -5,15 +5,16 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     public List<GameObject> shipQueue;
-    public GameObject[] stationPanels;
+    public List<Station> stations;
     public GameObject cam;
     public GameObject loadShip;
-    int curStation;
+    int currentStation;
+
     // Start is called before the first frame update
     void Start()
     {
-        curStation = 0;
-        stationPanels[curStation].SetActive(true);
+        currentStation = 0;
+        stations[currentStation].View();
     }
 
     // Update is called once per frame
@@ -25,64 +26,41 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public void leftStation()
+
+    // switch given number of stations
+    public void switchStation(int places)               // TODO: smooth camera movement
     {
-        //Rotate Camera -90 degrees
-        Vector3 newRotation = new Vector3(0, -72, 0);
+        // modulo to keep the number of places to switch within the number of available stations
+        places %= stations.Count;
+
+        // rotate Camera
+        Vector3 newRotation = new Vector3(0, 72 * places, 0);
         cam.transform.Rotate(newRotation);
 
-        //By pressing the left button, the station tracker moves backwards in the array by one element
 
-        curStation = curStation - 1;
+        // unview last station
+        stations[currentStation].Unview();
 
-        //If the station count drops below 0, assign it to the last element in the array
+        // increase currentStation index,
+        // modulo for whenever the index exceeds number of elements in the list,
+        // +stations.Count for whenever decrementing the index makes it negative
+        currentStation = (currentStation + places + stations.Count) % stations.Count;
 
-        if(curStation < 0)
-        {
-            curStation = 4;
-        }
-
-        //Set all panels to false active in order to ensure theres not 2 panels open (I'd like to make this more efficient later)
-        foreach(GameObject i in stationPanels)
-        {
-            i.SetActive(false);
-        }
-
-
-        //Set the current station panel to active as to be visible
-        stationPanels[curStation].SetActive(true);
-
-        //Thats it!
+        // view the current station
+        stations[currentStation].View();
     }
 
+
+    // switch to station on the left
+    public void leftStation()
+    {
+        switchStation(-1);
+    }
+
+    // switch to station on the right
     public void rightStation()
     {
-        //Rotate Camera 90 degrees
-        Vector3 newRotation = new Vector3(0, 72, 0);
-        cam.transform.Rotate(newRotation);
-
-        //By pressing the right button, the station tracker moves forwards in the array by one element
-
-        curStation = curStation + 1;
-
-        //If the station count goes above 3, assign it to the first element in the array
-
-        if (curStation > 4)
-        {
-            curStation = 0;
-        }
-
-        //Set all panels to false active in order to ensure theres not 2 panels open (I'd like to make this more efficient later)
-        foreach (GameObject i in stationPanels)
-        {
-            i.SetActive(false);
-        }
-
-
-        //Set the current station panel to active as to be visible
-        stationPanels[curStation].SetActive(true);
-
-        //Thats it!
+        switchStation(1);
     }
 
     public void shipOrder()
