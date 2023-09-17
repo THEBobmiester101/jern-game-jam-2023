@@ -10,14 +10,21 @@ public class GameMaster : MonoBehaviour
     public List<GameObject> shipQueue;
     public List<Station> stations;
     public GameObject canvas;
-    public GameObject cam;
     public GameObject loadShip;
+
+    [SerializeField] float camAnimationTime = 1.0f;
+    [SerializeField] float camAnimationEccent = 16.0f;
+    public GameObject cam;
+    
     int currentStation;
 
     // Start is called before the first frame update
     void Start()
     {
         currentStation = 0;
+
+        cam.transform.position = stations[currentStation].transform.position / 2.0f;
+
         stations[currentStation].View();
     }
 
@@ -32,18 +39,16 @@ public class GameMaster : MonoBehaviour
 
 
     // switch given number of stations
-    public async void switchStation(int places)               // TODO: smooth camera movement
+    public async void switchStation(int places)
     {
-        // modulo to keep the number of places to switch within the number of available stations
-        places %= stations.Count;
-
-        // rotate Camera
-        // Vector3 newRotation = new Vector3(0, 72 * places, 0);
-        // cam.transform.Rotate(newRotation);
-
-
         // unview last station
         stations[currentStation].Unview();
+
+
+        // increase currentStation index,
+        // modulo for whenever the index exceeds number of elements in the list,
+        // +stations.Count for whenever decrementing the index makes it negative
+        currentStation = (currentStation + places + stations.Count) % stations.Count;
 
 
         // deactivate buttons during animation
@@ -51,23 +56,32 @@ public class GameMaster : MonoBehaviour
         canvas.transform.Find("RightChange").gameObject.SetActive(false);
 
 
-        // camera rotation across multiple frames via coroutine
-        CameraController camController = cam.GetComponent<CameraController>();
-        StartCoroutine(camController.SmoothRotate(360.0f / stations.Count * places));
-        await Task.Run(() => { 
-            Thread.Sleep((int)(camController.animationTime * 1000)); 
-        });
+        // realize camera motion across multiple frames via coroutine
+        // use await to continue at this point in the function once SmoothMotion has finished
+        
+        // move away from current station
+        StartCoroutine(MotionController.SmoothMotion_Absolute(cam.transform,
+            new Vector3(.0f, .0f, .0f), null, null,
+            camAnimationTime * .5f, camAnimationEccent * .5f));
+        await MotionController.Wait(camAnimationTime * .5f);
+
+        // rotate towards next station
+        StartCoroutine(MotionController.SmoothMotion_Relative(cam.transform, 
+            null, new Vector3(0.0f, 360.0f / stations.Count * places % 360.0f, 0.0f), null, 
+            camAnimationTime, camAnimationEccent));
+        await MotionController.Wait(camAnimationTime); 
+
+        // zoom into new station
+        StartCoroutine(MotionController.SmoothMotion_Absolute(cam.transform,
+            stations[currentStation].transform.position / 2.0f, null, null,
+            camAnimationTime * .5f, camAnimationEccent * .5f));
+        await MotionController.Wait(camAnimationTime * .5f);
 
 
         // reactivate buttons once animation completed
         canvas.transform.Find("LeftChange").gameObject.SetActive(true);
         canvas.transform.Find("RightChange").gameObject.SetActive(true);
 
-
-        // increase currentStation index,
-        // modulo for whenever the index exceeds number of elements in the list,
-        // +stations.Count for whenever decrementing the index makes it negative
-        currentStation = (currentStation + places + stations.Count) % stations.Count;
 
         // view the current station
         stations[currentStation].View();
