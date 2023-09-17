@@ -21,16 +21,36 @@ public abstract class Station : MonoBehaviour
         }
     }
 
-    public void View()
+    private MinigameManager minigame;
+
+
+
+    void Awake()
+    {
+        this.minigame = this.gameObject.GetComponent<MinigameManager>();
+        this.minigame.enabled = false;
+    }
+
+
+
+    public virtual void View()
     {
         // activate stations UI when switching view to this station
         this.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(true);
         // pass true to also search inactive objects  --^--
+
+        // activate stations minigame
+        minigame.enabled = true;
+        minigame.Enter();
     }
 
-    public void Unview()
+    public virtual void Unview()
     {
         // deactivate stations UI when leaving this station
         this.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(false);
+
+        // deactivate stations minigame
+        minigame.Exit();
+        minigame.enabled = false;
     }
 }

@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class GameMaster : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public List<GameObject> shipQueue;
     public List<Station> stations;
