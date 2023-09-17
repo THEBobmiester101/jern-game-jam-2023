@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using TMPro;
 
 public class GameMaster : MonoBehaviour
 {
@@ -15,7 +16,11 @@ public class GameMaster : MonoBehaviour
     [SerializeField] float camAnimationTime = 1.0f;
     [SerializeField] float camAnimationEccent = 16.0f;
     public GameObject cam;
-    
+
+    public GameObject shipHolder;
+    public GameObject grid;
+    public List<GameObject> shipHolders;
+
     int currentStation;
 
     // Start is called before the first frame update
@@ -104,5 +109,12 @@ public class GameMaster : MonoBehaviour
     {
         GameObject temp = Instantiate(loadShip);
         shipQueue.Add(temp);
+
+        string shipName = '#' + UnityEngine.Random.Range(1000f, 2000f).ToString();
+        GameObject tempSH = Instantiate(shipHolder, grid.transform);
+        shipHolders.Add(tempSH);
+        GameObject shipText = tempSH.transform.Find("ShipName").gameObject;
+        TMP_Text shipTextName = shipText.GetComponent<TMP_Text>();
+        shipTextName.text = shipName;
     }
 }
