@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // time of animations in seconds
-    public float animationTime = 1.0f;
+    public float animationTime = 1.0f;        // time of animations in seconds
+    [SerializeField] float moveEccent = 2.0f;     // eccentricity of SmoothMove motion
+    [SerializeField] float rotEccent = 2.0f;      // eccentricity of SmoothRotate motion
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +23,15 @@ public class CameraController : MonoBehaviour
     }
 
     // smooth transition from [0, 0] to [1, 1]
-    private static float SmoothStep(float x)
+    private static float SmoothStep(float x, float eccentricity = 2.0f)
     {
-        return -2*x*x*x + 3*x*x;
+        float a = eccentricity;
+        float b = -2.5f * a;
+        float c = 2.0f * a - 2.0f;
+        float d = 3.0f - 0.5f * a;
+
+        // not using Mathf.Pow for small exponents
+        return a * x*x*x*x*x + b * x*x*x*x + c * x*x*x + d * x*x;
     }
 
     public IEnumerator SmoothRotate(float targetAngle)
@@ -35,7 +42,7 @@ public class CameraController : MonoBehaviour
         {
             float completed = (Time.time - startTime) / animationTime;
 
-            float newAngle = SmoothStep(completed) * targetAngle;
+            float newAngle = SmoothStep(completed, rotEccent) * targetAngle;
             float diffAngle = newAngle - currentAngle;
             currentAngle = newAngle;
 
