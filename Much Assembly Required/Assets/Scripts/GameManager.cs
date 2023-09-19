@@ -110,11 +110,12 @@ public class GameManager : MonoBehaviour
         GameObject temp = Instantiate(loadShip);
         shipQueue.Add(temp);
 
-        string shipName = '#' + UnityEngine.Random.Range(1000f, 2000f).ToString();
         GameObject tempSH = Instantiate(shipHolder, grid.transform);
         shipHolders.Add(tempSH);
-        GameObject shipText = tempSH.transform.Find("ShipName").gameObject;
-        TMP_Text shipTextName = shipText.GetComponent<TMP_Text>();
-        shipTextName.text = shipName;
+
+        TMP_Text shipName = tempSH.transform
+            .Find("ShipPanel/ShipPNG/ShipName")
+            .gameObject.GetComponent<TMP_Text>();
+        shipName.text = '#' + UnityEngine.Random.Range(1000f, 2000f).ToString();
     }
 }
