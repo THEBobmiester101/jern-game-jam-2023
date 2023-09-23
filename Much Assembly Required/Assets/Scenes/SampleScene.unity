@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -727,7 +727,7 @@ Canvas:
   m_GameObject: {fileID: 391165178}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1303026442}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 537534666}
   - component: {fileID: 537534665}
   - component: {fileID: 537534664}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Assembly_UICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -965,7 +965,7 @@ Canvas:
   m_GameObject: {fileID: 537534662}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1303026442}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -976,7 +976,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1006027017
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &604667326
@@ -1864,7 +1864,7 @@ Canvas:
   m_GameObject: {fileID: 874507670}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1303026442}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1966,7 +1966,7 @@ Canvas:
   m_GameObject: {fileID: 908653992}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1303026442}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2135,7 +2135,7 @@ GameObject:
   - component: {fileID: 1148487738}
   - component: {fileID: 1148487740}
   - component: {fileID: 1148487739}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2326,7 +2326,7 @@ Canvas:
   m_GameObject: {fileID: 1149837533}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1303026442}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2449,7 +2449,7 @@ Canvas:
   m_GameObject: {fileID: 1158499062}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1303026442}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2474,7 +2474,7 @@ GameObject:
   - component: {fileID: 1203645896}
   - component: {fileID: 1203645898}
   - component: {fileID: 1203645897}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ShipChooseHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2778,7 +2778,7 @@ GameObject:
   - component: {fileID: 1346236012}
   - component: {fileID: 1346236011}
   - component: {fileID: 1346236010}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
