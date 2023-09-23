@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> shipQueue;
     public List<Station> stations;
     public GameObject canvas;
-    public GameObject loadShip;
+    
+    [SerializeField] GameObject shipPrefab;
+    public List<GameObject> shipModels;
+
 
     [SerializeField] float camAnimationTime = 1.0f;
     [SerializeField] float camAnimationEccent = 16.0f;
@@ -107,8 +110,8 @@ public class GameManager : MonoBehaviour
 
     public void shipOrder()
     {
-        GameObject temp = Instantiate(loadShip);
-        shipQueue.Add(temp);
+        GameObject ship = Instantiate(shipPrefab);
+        shipQueue.Add(ship);
 
         GameObject tempSH = Instantiate(shipHolder, grid.transform);
         shipHolders.Add(tempSH);

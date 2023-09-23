@@ -778,7 +778,9 @@ MonoBehaviour:
   - {fileID: 351016288}
   - {fileID: 742647893}
   canvas: {fileID: 1149837533}
-  loadShip: {fileID: 2627120863094726159, guid: f2de343faba2fc543a4ab7cf4959b5ee, type: 3}
+  shipPrefab: {fileID: 1424999930165886799, guid: 4849c0813fceff54e915f69d109b59e3, type: 3}
+  shipModels:
+  - {fileID: 1530673510306936759, guid: 35f88500ac087eb458a8b030bf8df815, type: 3}
   camAnimationTime: 1
   camAnimationEccent: 16
   cam: {fileID: 1303026440}
