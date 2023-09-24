@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Station : MonoBehaviour
 {
-    private Spaceship? _spaceship = null;
-    public Spaceship Spaceship 
+    protected Spaceship? _spaceship = null;
+    virtual public Spaceship Spaceship 
     { 
         get { return _spaceship; }
         set 
@@ -21,7 +21,7 @@ public abstract class Station : MonoBehaviour
         }
     }
 
-    private MinigameManager minigame;
+    protected MinigameManager minigame;
 
 
 
@@ -33,8 +33,20 @@ public abstract class Station : MonoBehaviour
 
 
 
-    public virtual void View()
+    public async virtual void View()
     {
+        // if station currently doesn't have a spaceship, pull up the ship selection menus
+        if(Spaceship is null && FindObjectOfType<GameManager>().shipQueue.Count > 0)
+        {
+            Spaceship = await FindObjectOfType<ShipSelection>().SelectShip();
+
+            StartCoroutine(MotionController.SmoothMotion_Absolute(Spaceship.transform,
+                transform.position,
+                transform.eulerAngles,
+                null, 2.0f, 32.0f));
+            await MotionController.Wait(2.0f);
+        }
+
         // activate stations UI when switching view to this station
         this.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(true);
         // pass true to also search inactive objects  --^--

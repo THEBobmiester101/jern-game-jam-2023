@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.S))
         {
             shipOrder();
         }
@@ -112,13 +113,5 @@ public class GameManager : MonoBehaviour
     {
         GameObject ship = Instantiate(shipPrefab);
         shipQueue.Add(ship);
-
-        GameObject tempSH = Instantiate(shipHolder, grid.transform);
-        shipHolders.Add(tempSH);
-
-        TMP_Text shipName = tempSH.transform
-            .Find("ShipPanel/ShipPNG/ShipName")
-            .gameObject.GetComponent<TMP_Text>();
-        shipName.text = '#' + UnityEngine.Random.Range(1000f, 2000f).ToString();
     }
 }
