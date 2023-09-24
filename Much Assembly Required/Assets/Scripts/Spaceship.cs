@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
+using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Spaceship : MonoBehaviour
 {
-    GameManager gameManager;
+    private GameManager gameManager;
 
-    [SerializeField] GameObject shipHolder;
-    GameObject model;
+    public  GameObject ShipHolder { get; private set; }
+    private GameObject model;
     public string Name { get; private set; }
+
+    private Station currentStation;
+
+    [SerializeField] private float moveAnimationTime = 1.0f;
+    [SerializeField] private float moveAnimationEccen = 32.0f;
 
     
 
@@ -29,6 +37,10 @@ public class Spaceship : MonoBehaviour
         // set random codename
         this.Name = '#' + UnityEngine.Random.Range(1000f, 2000f).ToString();
 
+        // set currentStation to first station
+        currentStation = gameManager.stations[0];
+        transform.position = currentStation.transform.position;
+
         // create shipholder for ship selection
         CreateSelectionShipHolder();
     }
@@ -41,27 +53,43 @@ public class Spaceship : MonoBehaviour
     }
 
 
-    void func()
-    {
-        Debug.LogError("listener?");
-    }
-
     void CreateSelectionShipHolder()
     {
         ShipSelection shipSelection = FindObjectOfType<ShipSelection>(true);
 
         // Create the shipholder object
-        GameObject shipHolder = Instantiate(
+        this.ShipHolder = Instantiate(
             gameManager.shipHolder,
             shipSelection.GetComponentInChildren<GridLayoutGroup>(true).transform);
 
         // Set the name displayed on the shipholder
-        TMP_Text shipName = shipHolder.transform.Find("ShipPanel/ShipName").GetComponent<TMP_Text>();
+        TMP_Text shipName = ShipHolder.transform.Find("ShipPanel/ShipName").GetComponent<TMP_Text>();
         shipName.text = Name;
 
-        // Set up the button on the shipHolder
-        Button button = shipHolder.GetComponentInChildren<Button>();
-        button.onClick.AddListener(() => { shipSelection.ButtonCallback(this); });
+        // Set up the shipHolder button
+        Button button = ShipHolder.GetComponentInChildren<Button>();
+        UnityAction<Spaceship> action = new UnityAction<Spaceship>(shipSelection.ButtonCallback);
+        UnityEventTools.AddObjectPersistentListener(button.onClick, action, this);
+    }
+
+
+    public async Task MoveStation(Station targetStation)
+    {
+        // log out of previous station
+        currentStation.Spaceship = null;
+
+        // move to target station
+        StartCoroutine(MotionController.SmoothMotion_Absolute(transform,
+            targetStation.transform.position,
+            targetStation.transform.eulerAngles,
+            null, moveAnimationTime, moveAnimationEccen));
+        await MotionController.Wait(moveAnimationTime);
+
+        // log into target station
+        currentStation = targetStation;
+        targetStation.Spaceship = this;
+
+
     }
 
 

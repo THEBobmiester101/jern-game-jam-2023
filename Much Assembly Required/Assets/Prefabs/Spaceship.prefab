@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8371da3f741e3a47bb9ff00a0e311e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveAnimationTime: 2
+  moveAnimationEccen: 32

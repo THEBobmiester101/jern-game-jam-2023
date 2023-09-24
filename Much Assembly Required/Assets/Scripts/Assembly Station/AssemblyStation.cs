@@ -8,7 +8,11 @@ public class AssemblyStation : Station
     { 
         get { return _spaceship; } 
         set 
-        { 
+        {
+            Debug.Log("assembly spaceship setter\n" +
+                "value: " + value + "\n" +
+                "ship:  " + _spaceship);
+
             if (_spaceship is null)
             {
                 _spaceship = value;

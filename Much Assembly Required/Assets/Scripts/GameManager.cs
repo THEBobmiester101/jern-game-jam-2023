@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject shipHolder;
     public GameObject grid;
-    public List<GameObject> shipHolders;
 
     int currentStation;
 
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         currentStation = 0;
 
-        cam.transform.position = stations[currentStation].transform.position / 2.0f;
+        cam.transform.position = stations[currentStation].transform.position * 0.7f;
 
         stations[currentStation].View();
     }
@@ -82,7 +81,7 @@ public class GameManager : MonoBehaviour
 
         // zoom into new station
         StartCoroutine(MotionController.SmoothMotion_Absolute(cam.transform,
-            stations[currentStation].transform.position / 2.0f, null, null,
+            stations[currentStation].transform.position * 0.7f, null, null,
             camAnimationTime * .5f, camAnimationEccent * .5f));
         await MotionController.Wait(camAnimationTime * .5f);
 

@@ -22,7 +22,6 @@ public class ShipSelection : MonoBehaviour
 
     public void ButtonCallback(Spaceship ship)
     {
-        Debug.LogError("button called back");
         selectedShip = ship;
     }
 
@@ -33,7 +32,6 @@ public class ShipSelection : MonoBehaviour
                 while (selectedShip is null)
                 {
                     Thread.Sleep(10);
-                    // Debug.Log("selected ship: " + selectedShip);
                 }
             }
         );
@@ -41,7 +39,7 @@ public class ShipSelection : MonoBehaviour
 
     public async Task<Spaceship> SelectShip()
     {
-        this.selectedShip = null;
+        selectedShip = null;
 
         for (int i = 0; i < transform.childCount; i++)
             transform.GetChild(i).gameObject.SetActive(true);

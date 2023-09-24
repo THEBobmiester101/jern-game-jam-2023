@@ -32,19 +32,13 @@ public abstract class Station : MonoBehaviour
     }
 
 
-
     public async virtual void View()
     {
         // if station currently doesn't have a spaceship, pull up the ship selection menus
         if(Spaceship is null && FindObjectOfType<GameManager>().shipQueue.Count > 0)
         {
-            Spaceship = await FindObjectOfType<ShipSelection>().SelectShip();
-
-            StartCoroutine(MotionController.SmoothMotion_Absolute(Spaceship.transform,
-                transform.position,
-                transform.eulerAngles,
-                null, 2.0f, 32.0f));
-            await MotionController.Wait(2.0f);
+            Spaceship ship = await FindObjectOfType<ShipSelection>().SelectShip();
+            await ship.MoveStation(this);
         }
 
         // activate stations UI when switching view to this station
@@ -55,6 +49,7 @@ public abstract class Station : MonoBehaviour
         minigame.enabled = true;
         minigame.Enter();
     }
+
 
     public virtual void Unview()
     {
