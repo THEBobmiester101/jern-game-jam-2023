@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Station : MonoBehaviour
 {
-    protected Spaceship? _spaceship = null;
+    public Spaceship? _spaceship { get; protected set; } = null;
+
     virtual public Spaceship Spaceship 
     { 
         get { return _spaceship; }
@@ -28,26 +29,30 @@ public abstract class Station : MonoBehaviour
     void Awake()
     {
         this.minigame = this.gameObject.GetComponent<MinigameManager>();
+        this.minigame.station = this;
         this.minigame.enabled = false;
     }
 
 
     public async virtual void View()
     {
-        // if station currently doesn't have a spaceship, pull up the ship selection menus
+        // if station currently doesn't have a spaceship, pull up the ship selection menu
         if(Spaceship is null && FindObjectOfType<GameManager>().shipQueue.Count > 0)
         {
             Spaceship ship = await FindObjectOfType<ShipSelection>().SelectShip();
             await ship.MoveStation(this);
         }
 
-        // activate stations UI when switching view to this station
-        this.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(true);
-        // pass true to also search inactive objects  --^--
+        if(Spaceship is not null)
+        {
+            // activate stations UI when switching view to this station
+            this.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(true);
+            // pass true to also search inactive objects  --^--
 
-        // activate stations minigame
-        minigame.enabled = true;
-        minigame.Enter();
+            // activate stations minigame
+            minigame.enabled = true;
+            minigame.Enter();
+        }
     }
 
 
@@ -56,8 +61,11 @@ public abstract class Station : MonoBehaviour
         // deactivate stations UI when leaving this station
         this.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(false);
 
-        // deactivate stations minigame
-        minigame.Exit();
-        minigame.enabled = false;
+        if(minigame.enabled)
+        {
+            // deactivate stations minigame
+            minigame.Exit();
+            minigame.enabled = false;
+        }
     }
 }

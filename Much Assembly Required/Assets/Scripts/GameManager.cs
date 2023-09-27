@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
     // switch given number of stations
     public async void switchStation(int places)
     {
+        // deactivate buttons during animation
+        canvas.transform.Find("LeftChange").gameObject.SetActive(false);
+        canvas.transform.Find("RightChange").gameObject.SetActive(false);
+
+
         // unview last station
         stations[currentStation].Unview();
 
@@ -57,11 +62,6 @@ public class GameManager : MonoBehaviour
         // modulo for whenever the index exceeds number of elements in the list,
         // +stations.Count for whenever decrementing the index makes it negative
         currentStation = (currentStation + places + stations.Count) % stations.Count;
-
-
-        // deactivate buttons during animation
-        canvas.transform.Find("LeftChange").gameObject.SetActive(false);
-        canvas.transform.Find("RightChange").gameObject.SetActive(false);
 
 
         // realize camera motion across multiple frames via coroutine
@@ -86,13 +86,13 @@ public class GameManager : MonoBehaviour
         await MotionController.Wait(camAnimationTime * .5f);
 
 
+        // view the current station
+        stations[currentStation].View();
+
+
         // reactivate buttons once animation completed
         canvas.transform.Find("LeftChange").gameObject.SetActive(true);
         canvas.transform.Find("RightChange").gameObject.SetActive(true);
-
-
-        // view the current station
-        stations[currentStation].View();
     }
 
 

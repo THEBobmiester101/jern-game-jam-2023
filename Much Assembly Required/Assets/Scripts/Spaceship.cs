@@ -73,6 +73,7 @@ public class Spaceship : MonoBehaviour
     }
 
 
+    // function to move ship to the next station
     public async Task MoveStation(Station targetStation)
     {
         // log out of previous station
@@ -88,8 +89,6 @@ public class Spaceship : MonoBehaviour
         // log into target station
         currentStation = targetStation;
         targetStation.Spaceship = this;
-
-
     }
 
 

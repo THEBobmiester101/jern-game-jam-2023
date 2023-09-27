@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class MinigameManager : MonoBehaviour
 {
+    public Station station;
+
     // Start is called before the first frame update
     void Start()
     {
