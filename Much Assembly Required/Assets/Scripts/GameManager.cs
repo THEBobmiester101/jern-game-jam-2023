@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 
 
         // view the current station
-        stations[currentStation].View();
+        await stations[currentStation].View();
 
 
         // reactivate buttons once animation completed

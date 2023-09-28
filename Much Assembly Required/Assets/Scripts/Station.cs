@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public abstract class Station : MonoBehaviour
@@ -34,7 +35,7 @@ public abstract class Station : MonoBehaviour
     }
 
 
-    public async virtual void View()
+    public virtual async Task View()
     {
         // if station currently doesn't have a spaceship, pull up the ship selection menu
         if(Spaceship is null && FindObjectOfType<GameManager>().shipQueue.Count > 0)
