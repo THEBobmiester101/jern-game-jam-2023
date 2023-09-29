@@ -2,7 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Events;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class AssemblyGame : MinigameManager
 {
@@ -25,6 +28,35 @@ public class AssemblyGame : MinigameManager
         
     }
 
+    public void ButtonCallback(GameObject panel)
+    {
+        GameObject uiPart = panel.GetComponentInChildren<PartAnimation>().gameObject;
+        GameObject dragablePart = Instantiate(uiPart, FindObjectOfType<GameManager>().cam.transform);
+        uiPart.SetActive(false);
+        dragablePart.transform.localScale = Vector3.one * 5;
+        dragablePart.layer = LayerMask.NameToLayer("Default");
+        StartCoroutine(DragPart(uiPart, dragablePart));
+    }
+
+    public IEnumerator DragPart(GameObject uiPart, GameObject dragablePart)
+    {
+        Debug.Log("drag part coroutine");
+        while(!Input.GetMouseButtonDown(1))
+        {
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 screenDim = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
+            mousePos = 2.0f * mousePos - screenDim;
+            mousePos /= screenDim.x;
+
+            Debug.Log("mousePos: " + mousePos);
+
+            dragablePart.transform.localPosition = new Vector3(mousePos.x, mousePos.y, 1.0f);
+            yield return 0;
+        }
+        Destroy(dragablePart);
+        uiPart.SetActive(true);
+    }
+
     public static float MaxNorm(Vector3 vec)
     {
         float max1 = vec.x > vec.y ? vec.x : vec.y;
@@ -34,21 +66,6 @@ public class AssemblyGame : MinigameManager
     {
         base.Enter();
 
-        Debug.Log("Let's play an assembly game");
-
-        // Transform partTargets = station.Spaceship.transform.GetChild(0);
-        // foreach(Transform part in partTargets.Find("PartTargets"))
-        // {
-        //     Debug.Log("ship is missing part: " + part.gameObject);
-        //     GameObject copy = Instantiate(part.gameObject, transform);
-        //     buildingParts.Add(copy);
-        // }
-        // 
-        // Transform uiPartHolder = station.transform
-        //     .GetComponentInChildren<Canvas>().transform.Find("PartHolder");
-        // for(int i = 0; i < buildingParts.Count; i++)
-        // { }
-
         Transform shipPartTargets = station.Spaceship.transform.GetChild(0).Find("PartTargets");
         Transform uiPartHolder = station.GetComponentInChildren<Canvas>().transform.Find("PartHolder");
         for (int i = 0; i < shipPartTargets.childCount; i++)
@@ -56,20 +73,28 @@ public class AssemblyGame : MinigameManager
             GameObject target = shipPartTargets.GetChild(i).gameObject;
             GameObject panel = uiPartHolder.GetChild(i).gameObject;
 
-            Debug.Log("ship is missing part: " + target.name);
             GameObject copy = Instantiate(target, panel.transform);
             buildingParts.Add(copy);
 
-            float currentScale = MaxNorm(copy.transform.localScale);
-            copy.transform.localScale *= uiPartScale / currentScale;
-            currentScale = MaxNorm(copy.transform.localScale);
-            copy.transform.localEulerAngles = Vector3.zero;
-            copy.transform.localPosition = Vector3.zero - 
-                copy.GetComponent<BoxCollider>().center * currentScale;
-            copy.transform.localPosition += new Vector3(0, 0, -100);
+            // arrange copy on ui panel
+            {
+                float currentScale = MaxNorm(copy.transform.localScale);
+                copy.transform.localScale *= uiPartScale / currentScale;
+                currentScale = MaxNorm(copy.transform.localScale);
+                copy.transform.localEulerAngles = Vector3.zero;
+                copy.transform.localPosition = Vector3.zero - copy.GetComponent<BoxCollider>().center * currentScale;
+                copy.transform.localPosition += new Vector3(0, 0, -100);
+            
+                copy.layer = LayerMask.NameToLayer("UI");
+                copy.GetComponent<MeshRenderer>().material = rawMaterial;
+            }
 
-            copy.layer = LayerMask.NameToLayer("UI");
-            copy.GetComponent<MeshRenderer>().material = rawMaterial;
+            // connect button
+            {
+                Button button = panel.GetComponentInChildren<Button>();
+                UnityAction<GameObject> action = new UnityAction<GameObject>(this.ButtonCallback);
+                UnityEventTools.AddObjectPersistentListener<GameObject>(button.onClick, action, panel);
+            }
         }
     }
 
